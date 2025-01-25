@@ -1,6 +1,6 @@
-[gd_scene load_steps=11 format=3 uid="uid://boqde43gwekyv"]
+[gd_scene load_steps=12 format=3 uid="uid://boqde43gwekyv"]
 
-[ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_51cmc"]
+[ext_resource type="Script" path="res://player.gd" id="1_51cmc"]
 [ext_resource type="Texture2D" uid="uid://cdpo54pxvmph7" path="res://game-bg_03.png" id="1_tvq7u"]
 [ext_resource type="Texture2D" uid="uid://b1mcn6lf0fppe" path="res://bubble-placeholder1.png" id="3_eg1u6"]
 [ext_resource type="AudioStream" uid="uid://dnwp33o5fcvuf" path="res://Wishing-Star.ogg" id="3_lfe3m"]
@@ -17,6 +17,9 @@ friction = 0.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi70v"]
 radius = 52.0096
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ex5c"]
+size = Vector2(161, 112)
 
 [node name="Node2D" type="Node2D"]
 
@@ -87,11 +90,8 @@ current = true
 stream = ExtResource("3_lfe3m")
 autoplay = true
 
-[node name="Oneshot" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource("5_paspp")
-
 [node name="Camera2D" type="Camera2D" parent="Player"]
-position = Vector2(0, 200)
+offset = Vector2(0, -200)
 zoom = Vector2(0.4, 0.4)
 limit_left = -960
 limit_right = 960
@@ -108,6 +108,15 @@ script = ExtResource("6_nqjj2")
 wait_time = 3.0
 autostart = true
 
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("RectangleShape2D_0ex5c")
+
+[node name="Oneshot" type="AudioStreamPlayer2D" parent="StaticBody2D"]
+position = Vector2(0, 200)
+stream = ExtResource("5_paspp")
+
 [connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
-[connection signal="finished" from="Player/Oneshot" to="Player" method="_on_oneshot_finished"]
 [connection signal="timeout" from="Player/BubbleSpawner/Timer" to="Player/BubbleSpawner" method="_on_timer_timeout"]
+[connection signal="finished" from="StaticBody2D/Oneshot" to="Player" method="_on_oneshot_finished"]
