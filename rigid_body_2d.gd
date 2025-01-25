@@ -1,6 +1,6 @@
 extends RigidBody2D
 
-var vertical_accel = Vector2(0,5)
+var vertical_accel = Vector2(0,1)
 var horizontal_accel = Vector2(10,0) 
 var thrust = Vector2()
 @onready var camera = $Camera2D

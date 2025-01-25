@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://boqde43gwekyv"]
+[gd_scene load_steps=8 format=3 uid="uid://boqde43gwekyv"]
 
-[ext_resource type="Texture2D" uid="uid://ca6tat3ps5365" path="res://bg-scroll-sketch_01.png" id="1_5nq7k"]
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_51cmc"]
+[ext_resource type="Texture2D" uid="uid://xmvxnv1alci" path="res://game-bg_02.png" id="1_dt0h1"]
+[ext_resource type="Texture2D" uid="uid://b1mcn6lf0fppe" path="res://bubble-placeholder1.png" id="3_eg1u6"]
 [ext_resource type="AudioStream" uid="uid://dnwp33o5fcvuf" path="res://Wishing-Star.ogg" id="3_lfe3m"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jbb1o"]
@@ -10,64 +11,67 @@ normal = Vector2(1, 0)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_qc32k"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi70v"]
-radius = 48.0
-
-[sub_resource type="Gradient" id="Gradient_lxcdy"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_226ig"]
-gradient = SubResource("Gradient_lxcdy")
+radius = 52.0096
 
 [node name="Node2D" type="Node2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(0, -4409)
-texture = ExtResource("1_5nq7k")
+[node name="Background" type="Node2D" parent="."]
 
-[node name="Right Limit" type="StaticBody2D" parent="Sprite2D"]
+[node name="Background Image" type="Sprite2D" parent="Background"]
+position = Vector2(0, -14416)
+texture = ExtResource("1_dt0h1")
+
+[node name="Right Limit" type="StaticBody2D" parent="Background/Background Image"]
 position = Vector2(960, 0)
 constant_linear_velocity = Vector2(-960, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Right Limit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Background Image/Right Limit"]
 scale = Vector2(-1, -1)
 shape = SubResource("WorldBoundaryShape2D_jbb1o")
 debug_color = Color(0.970945, 5.27032e-06, 1.34766e-06, 0.419608)
 
-[node name="Left Limit" type="StaticBody2D" parent="Sprite2D"]
+[node name="Left Limit" type="StaticBody2D" parent="Background/Background Image"]
 position = Vector2(-960, 0)
 rotation = 3.14159
 constant_linear_velocity = Vector2(-960, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Left Limit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Background Image/Left Limit"]
 scale = Vector2(-1, -1)
 shape = SubResource("WorldBoundaryShape2D_jbb1o")
 debug_color = Color(0.970945, 5.27032e-06, 1.34766e-06, 0.419608)
 
-[node name="Bottom Limit" type="StaticBody2D" parent="Sprite2D"]
-position = Vector2(0, 4835)
+[node name="Bottom Limit" type="StaticBody2D" parent="Background/Background Image"]
+position = Vector2(0, 15000)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2D/Bottom Limit"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Background/Background Image/Bottom Limit"]
 shape = SubResource("WorldBoundaryShape2D_qc32k")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-visible = false
-offset_right = 1920.0
-offset_bottom = 1080.0
+[node name="Bubble-placeholder2" type="Sprite2D" parent="Background"]
+position = Vector2(946, 252)
+scale = Vector2(0.690975, 0.652297)
+texture = ExtResource("3_eg1u6")
+
+[node name="Bubble-placeholder1" type="Sprite2D" parent="Background"]
+position = Vector2(-1019, 165)
+texture = ExtResource("3_eg1u6")
 
 [node name="Player" type="RigidBody2D" parent="."]
-gravity_scale = -0.05
+position = Vector2(0, 200)
+gravity_scale = -0.02
 lock_rotation = true
 script = ExtResource("1_51cmc")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+scale = Vector2(0.0875875, 0.0855346)
+texture = ExtResource("3_eg1u6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
 shape = SubResource("CircleShape2D_hi70v")
 
-[node name="Sprite2D" type="Sprite2D" parent="Player"]
-scale = Vector2(2.01563, 1.96875)
-texture = SubResource("GradientTexture2D_226ig")
-
 [node name="Camera2D" type="Camera2D" parent="Player"]
 limit_left = -960
 limit_right = 960
+limit_bottom = 550
 position_smoothing_enabled = true
 
 [node name="AudioListener2D" type="AudioListener2D" parent="Player/Camera2D"]
