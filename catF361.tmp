@@ -1,0 +1,26 @@
+[gd_scene load_steps=5 format=3 uid="uid://boqde43gwekyv"]
+
+[ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_51cmc"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hi70v"]
+
+[sub_resource type="Gradient" id="Gradient_lxcdy"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_226ig"]
+gradient = SubResource("Gradient_lxcdy")
+
+[node name="Node2D" type="Node2D"]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+gravity_scale = -2.042
+script = ExtResource("1_51cmc")
+acceleration = null
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+shape = SubResource("CircleShape2D_hi70v")
+
+[node name="Sprite2D" type="Sprite2D" parent="RigidBody2D"]
+texture = SubResource("GradientTexture2D_226ig")
+
+[node name="Camera2D" type="Camera2D" parent="RigidBody2D"]
+position_smoothing_enabled = true
