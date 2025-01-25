@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://m22qbmp7m0a5"]
+
+[ext_resource type="Texture2D" uid="uid://b1mcn6lf0fppe" path="res://bubble-placeholder1.png" id="1_uksj6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_oe7ml"]
+radius = 47.1699
+
+[node name="NPCBubble" type="RigidBody2D"]
+gravity_scale = 0.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.088, 0.088)
+texture = ExtResource("1_uksj6")
+region_rect = Rect2(63.0137, 0, 33.7655, 32)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_oe7ml")

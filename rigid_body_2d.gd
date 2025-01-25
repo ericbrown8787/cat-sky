@@ -1,7 +1,7 @@
 extends RigidBody2D
 
-var up_accel = Vector2(0,-3)
-var down_accel = Vector2(0,1)
+var up_accel = Vector2(0,-4)
+var down_accel = Vector2(0,2)
 var horizontal_accel = Vector2(10,0) 
 var thrust = Vector2()
 @onready var oneshot_player = $Oneshot

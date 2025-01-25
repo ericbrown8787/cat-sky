@@ -1,11 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://boqde43gwekyv"]
+[gd_scene load_steps=11 format=3 uid="uid://boqde43gwekyv"]
 
 [ext_resource type="Script" path="res://rigid_body_2d.gd" id="1_51cmc"]
-[ext_resource type="Texture2D" uid="uid://xmvxnv1alci" path="res://game-bg_02.png" id="1_dt0h1"]
+[ext_resource type="Texture2D" uid="uid://cdpo54pxvmph7" path="res://game-bg_03.png" id="1_tvq7u"]
 [ext_resource type="Texture2D" uid="uid://b1mcn6lf0fppe" path="res://bubble-placeholder1.png" id="3_eg1u6"]
 [ext_resource type="AudioStream" uid="uid://dnwp33o5fcvuf" path="res://Wishing-Star.ogg" id="3_lfe3m"]
-[ext_resource type="Texture2D" uid="uid://dhacsxln3webp" path="res://gentle 32x32 v07.png" id="5_hbbu1"]
 [ext_resource type="AudioStream" uid="uid://b5gaqogx8m2fh" path="res://Collision Bell.wav" id="5_paspp"]
+[ext_resource type="Script" path="res://bubble_spawner.gd" id="6_nqjj2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jbb1o"]
 normal = Vector2(1, 0)
@@ -18,16 +18,13 @@ friction = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi70v"]
 radius = 52.0096
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_oe7ml"]
-radius = 47.1699
-
 [node name="Node2D" type="Node2D"]
 
 [node name="Background" type="Node2D" parent="."]
 
 [node name="Background Image" type="Sprite2D" parent="Background"]
 position = Vector2(0, -14416)
-texture = ExtResource("1_dt0h1")
+texture = ExtResource("1_tvq7u")
 
 [node name="Bubble-placeholder2" type="Sprite2D" parent="Background"]
 position = Vector2(946, 252)
@@ -92,36 +89,22 @@ autoplay = true
 stream = ExtResource("5_paspp")
 
 [node name="Camera2D" type="Camera2D" parent="Player"]
+position = Vector2(0, 200)
 limit_left = -960
 limit_right = 960
 limit_bottom = 550
 position_smoothing_enabled = true
+position_smoothing_speed = 10.0
 
-[node name="InteractiveObject" type="RigidBody2D" parent="."]
-position = Vector2(254, -529)
-gravity_scale = 0.0
+[node name="BubbleSpawner" type="Node2D" parent="Player"]
+visible = false
+position = Vector2(0, 1000)
+script = ExtResource("6_nqjj2")
 
-[node name="Sprite2D" type="Sprite2D" parent="InteractiveObject"]
-scale = Vector2(3.15625, 3.15625)
-texture = ExtResource("5_hbbu1")
-region_enabled = true
-region_rect = Rect2(63.0137, 0, 33.7655, 32)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractiveObject"]
-shape = SubResource("CircleShape2D_oe7ml")
-
-[node name="InteractiveObject2" type="RigidBody2D" parent="."]
-position = Vector2(500, -529)
-gravity_scale = 0.0
-
-[node name="Sprite2D" type="Sprite2D" parent="InteractiveObject2"]
-scale = Vector2(3.15625, 3.15625)
-texture = ExtResource("5_hbbu1")
-region_enabled = true
-region_rect = Rect2(63.0137, 0, 33.7655, 32)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="InteractiveObject2"]
-shape = SubResource("CircleShape2D_oe7ml")
+[node name="Timer" type="Timer" parent="Player/BubbleSpawner"]
+wait_time = 3.0
+autostart = true
 
 [connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
 [connection signal="finished" from="Player/Oneshot" to="Player" method="_on_oneshot_finished"]
+[connection signal="timeout" from="Player/BubbleSpawner/Timer" to="Player/BubbleSpawner" method="_on_timer_timeout"]
