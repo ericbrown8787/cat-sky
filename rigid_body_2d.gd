@@ -1,8 +1,10 @@
 extends RigidBody2D
 
-var vertical_accel = Vector2(0,1)
+var up_accel = Vector2(0,-3)
+var down_accel = Vector2(0,1)
 var horizontal_accel = Vector2(10,0) 
 var thrust = Vector2()
+@onready var oneshot_player = $Oneshot
 @onready var camera = $Camera2D
 var camera_size
 
@@ -13,9 +15,9 @@ func _ready():
 
 func handle_input():
 	if Input.is_action_pressed("up"):
-		self.apply_impulse(-vertical_accel)
+		self.apply_impulse(up_accel)
 	if Input.is_action_pressed("down"):
-		self.apply_impulse(vertical_accel)
+		self.apply_impulse(down_accel)
 	if Input.is_action_pressed("left"):
 		self.apply_impulse(-horizontal_accel)
 	if Input.is_action_pressed("right"):
@@ -23,5 +25,11 @@ func handle_input():
 
 func _physics_process(delta):
 	handle_input()
-	
-	
+
+func _on_body_entered(body: Node):
+	oneshot_player.play()
+	print("Collided")
+
+
+func _on_oneshot_finished() -> void:
+	pass # Replace with function body.
