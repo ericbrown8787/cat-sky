@@ -1,9 +1,24 @@
 [gd_scene load_steps=6 format=3 uid="uid://m22qbmp7m0a5"]
 
-[ext_resource type="Texture2D" uid="uid://voiubuqo43bt" path="res://Bubble sprite.png" id="1_s7nb7"]
+[ext_resource type="Texture2D" uid="uid://voiubuqo43bt" path="res://animated_sprites/Bubble sprite.png" id="1_s7nb7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_oe7ml"]
 radius = 47.1699
+
+[sub_resource type="Animation" id="Animation_aper6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
 
 [sub_resource type="Animation" id="Animation_p3kma"]
 resource_name = "idle"
@@ -20,21 +35,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": [0, 1, 2, 3]
-}
-
-[sub_resource type="Animation" id="Animation_aper6"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_var01"]
