@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://boqde43gwekyv"]
+[gd_scene load_steps=18 format=3 uid="uid://boqde43gwekyv"]
 
 [ext_resource type="Script" path="res://player.gd" id="1_51cmc"]
 [ext_resource type="Texture2D" uid="uid://cdpo54pxvmph7" path="res://game-bg_03.png" id="1_tvq7u"]
@@ -6,6 +6,9 @@
 [ext_resource type="AudioStream" uid="uid://dnwp33o5fcvuf" path="res://Wishing-Star.ogg" id="3_lfe3m"]
 [ext_resource type="AudioStream" uid="uid://b5gaqogx8m2fh" path="res://Collision Bell.wav" id="5_paspp"]
 [ext_resource type="Script" path="res://bubble_spawner.gd" id="6_nqjj2"]
+[ext_resource type="Script" path="res://ghost.gd" id="6_v08to"]
+[ext_resource type="Texture2D" uid="uid://d4i2g24c4835o" path="res://ghost 01.png" id="7_wxb1k"]
+[ext_resource type="PackedScene" uid="uid://m22qbmp7m0a5" path="res://npc_bubble.tscn" id="9_n0vg2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jbb1o"]
 normal = Vector2(1, 0)
@@ -18,8 +21,46 @@ friction = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi70v"]
 radius = 52.0096
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_0ex5c"]
-size = Vector2(161, 112)
+[sub_resource type="Animation" id="Animation_awcf8"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_u2wu4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eeud4"]
+_data = {
+"RESET": SubResource("Animation_u2wu4"),
+"idle": SubResource("Animation_awcf8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1xb"]
+size = Vector2(161, 241)
 
 [node name="Node2D" type="Node2D"]
 
@@ -108,15 +149,62 @@ script = ExtResource("6_nqjj2")
 wait_time = 3.0
 autostart = true
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Ghost" type="Area2D" parent="."]
+script = ExtResource("6_v08to")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-shape = SubResource("RectangleShape2D_0ex5c")
-
-[node name="Oneshot" type="AudioStreamPlayer2D" parent="StaticBody2D"]
+[node name="Oneshot" type="AudioStreamPlayer2D" parent="Ghost"]
 position = Vector2(0, 200)
 stream = ExtResource("5_paspp")
 
+[node name="Sprite2D" type="Sprite2D" parent="Ghost"]
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_wxb1k")
+hframes = 3
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Ghost"]
+libraries = {
+"": SubResource("AnimationLibrary_eeud4")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ghost"]
+visible = false
+position = Vector2(3.5, -1.5)
+shape = SubResource("RectangleShape2D_ob1xb")
+
+[node name="Cat" type="Area2D" parent="."]
+script = ExtResource("6_v08to")
+
+[node name="Oneshot" type="AudioStreamPlayer2D" parent="Cat"]
+position = Vector2(0, 200)
+stream = ExtResource("5_paspp")
+
+[node name="Sprite2D" type="Sprite2D" parent="Cat"]
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("7_wxb1k")
+hframes = 3
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat"]
+libraries = {
+"": SubResource("AnimationLibrary_eeud4")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat"]
+position = Vector2(3.5, -1.5)
+shape = SubResource("RectangleShape2D_ob1xb")
+
+[node name="NPCBubble" parent="." instance=ExtResource("9_n0vg2")]
+position = Vector2(283, 29)
+
 [connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
+[connection signal="player_entered_ghost" from="Player" to="Ghost" method="_on_player_player_entered_ghost"]
 [connection signal="timeout" from="Player/BubbleSpawner/Timer" to="Player/BubbleSpawner" method="_on_timer_timeout"]
-[connection signal="finished" from="StaticBody2D/Oneshot" to="Player" method="_on_oneshot_finished"]
+[connection signal="body_entered" from="Ghost" to="Player" method="_on_ghost_body_entered"]
+[connection signal="finished" from="Ghost/Oneshot" to="Player" method="_on_oneshot_finished"]
+[connection signal="body_entered" from="Cat" to="Player" method="_on_ghost_body_entered"]
+[connection signal="finished" from="Cat/Oneshot" to="Player" method="_on_oneshot_finished"]

@@ -4,7 +4,7 @@ var up_accel = Vector2(0,-4)
 var down_accel = Vector2(0,2)
 var horizontal_accel = Vector2(10,0) 
 var camera_size
-
+signal player_entered_ghost
 func handle_input():
 	if Input.is_action_pressed("up"):
 		self.apply_impulse(up_accel)
@@ -29,6 +29,10 @@ func _physics_process(delta):
 func _on_body_entered(body: Node):
 	handle_collision(body)
 
-
 func _on_oneshot_finished() -> void:
 	pass # Replace with function body.
+
+func _on_ghost_body_entered(body: Node2D) -> void:
+	player_entered_ghost.emit()
+	print("Player entered.")
+	
