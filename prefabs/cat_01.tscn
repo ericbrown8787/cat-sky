@@ -1,0 +1,70 @@
+[gd_scene load_steps=7 format=3 uid="uid://b1kdwyn3uh3td"]
+
+[ext_resource type="AudioStream" uid="uid://b5gaqogx8m2fh" path="res://audio/Collision Bell.wav" id="1_giuyq"]
+[ext_resource type="Texture2D" uid="uid://cqwokv8vgg54s" path="res://animated_sprites/cat-sprite_01.png" id="2_qkcet"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jm256"]
+radius = 201.0
+height = 1436.0
+
+[sub_resource type="Animation" id="Animation_gg64o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_rj0yq"]
+resource_name = "idle"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qoljg"]
+_data = {
+"RESET": SubResource("Animation_gg64o"),
+"idle": SubResource("Animation_rj0yq")
+}
+
+[node name="Cat 01" type="StaticBody2D"]
+position = Vector2(-200, -900)
+
+[node name="Oneshot" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 200)
+stream = ExtResource("1_giuyq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.803125, 0.803125)
+texture = ExtResource("2_qkcet")
+vframes = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 69)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_jm256")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_qoljg")
+}
+autoplay = "idle"

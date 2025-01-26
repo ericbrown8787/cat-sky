@@ -1,0 +1,72 @@
+[gd_scene load_steps=7 format=3 uid="uid://cbhcrmdmjm2y5"]
+
+[ext_resource type="AudioStream" uid="uid://b5gaqogx8m2fh" path="res://audio/Collision Bell.wav" id="1_fx4ai"]
+[ext_resource type="Texture2D" uid="uid://cxt467u3dhaan" path="res://animated_sprites/cat1.png" id="2_wx7rw"]
+
+[sub_resource type="Animation" id="Animation_u2wu4"]
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_awcf8"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eeud4"]
+_data = {
+"RESET": SubResource("Animation_u2wu4"),
+"idle": SubResource("Animation_awcf8")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qtjir"]
+radius = 136.0
+height = 568.0
+
+[node name="Cat Sleeping" type="StaticBody2D"]
+position = Vector2(-500, -200)
+
+[node name="Oneshot" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 200)
+stream = ExtResource("1_fx4ai")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(2.25862, 2.25862)
+texture = ExtResource("2_wx7rw")
+hframes = 2
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eeud4")
+}
+autoplay = "RESET"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-18, -156)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_qtjir")

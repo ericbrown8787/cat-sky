@@ -1,22 +1,20 @@
-[gd_scene load_steps=54 format=3 uid="uid://boqde43gwekyv"]
+[gd_scene load_steps=20 format=3 uid="uid://boqde43gwekyv"]
 
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_51cmc"]
-[ext_resource type="Texture2D" uid="uid://cdpo54pxvmph7" path="res://backgrounds/game-bg_03.png" id="1_tvq7u"]
+[ext_resource type="Texture2D" uid="uid://dg2t81n2vpmc8" path="res://backgrounds/game-bg_03A.png" id="2_qcry6"]
 [ext_resource type="Texture2D" uid="uid://b1mcn6lf0fppe" path="res://scripts/bubble-placeholder1.png" id="3_eg1u6"]
 [ext_resource type="AudioStream" uid="uid://dnwp33o5fcvuf" path="res://audio/Wishing-Star.ogg" id="3_lfe3m"]
-[ext_resource type="AudioStream" uid="uid://b5gaqogx8m2fh" path="res://audio/Collision Bell.wav" id="5_paspp"]
+[ext_resource type="PackedScene" uid="uid://kxmxh4b6vdg0" path="res://prefabs/ghost.tscn" id="3_roed1"]
+[ext_resource type="Texture2D" uid="uid://doxmrnxup4g1v" path="res://backgrounds/game-bg_03B.png" id="3_yjr52"]
 [ext_resource type="Script" path="res://scripts/bubble_spawner.gd" id="6_nqjj2"]
-[ext_resource type="Script" path="res://scripts/ghost.gd" id="6_v08to"]
-[ext_resource type="Texture2D" uid="uid://d4i2g24c4835o" path="res://animated_sprites/ghost 01.png" id="7_wxb1k"]
-[ext_resource type="Texture2D" uid="uid://cxt467u3dhaan" path="res://animated_sprites/cat1.png" id="9_hsf22"]
-[ext_resource type="PackedScene" uid="uid://m22qbmp7m0a5" path="res://npc_bubble.tscn" id="9_n0vg2"]
-[ext_resource type="Texture2D" uid="uid://ymfp1rxiofga" path="res://animated_sprites/cat-sprite_02.png" id="10_4afht"]
-[ext_resource type="Texture2D" uid="uid://cqwokv8vgg54s" path="res://animated_sprites/cat-sprite_01.png" id="10_ghxy1"]
-[ext_resource type="Texture2D" uid="uid://c6cxic2mjccob" path="res://animated_sprites/cat-sprite_03.png" id="11_fs14u"]
-[ext_resource type="Texture2D" uid="uid://degpcpd3y5pyo" path="res://animated_sprites/cat-sprite_04.png" id="14_7anny"]
-[ext_resource type="Texture2D" uid="uid://6e6ft6u7myy1" path="res://animated_sprites/cat-sprite_05.png" id="15_nq8p5"]
-[ext_resource type="Texture2D" uid="uid://lbn50lleg2un" path="res://animated_sprites/cat-sprite_06.png" id="16_uyvx6"]
-[ext_resource type="Texture2D" uid="uid://d3q3to85x3rxc" path="res://animated_sprites/cat-sprite_07.png" id="17_2sobp"]
+[ext_resource type="PackedScene" uid="uid://cbhcrmdmjm2y5" path="res://prefabs/cat_sleeping.tscn" id="7_rw57t"]
+[ext_resource type="PackedScene" uid="uid://b1kdwyn3uh3td" path="res://prefabs/cat_01.tscn" id="8_jq25l"]
+[ext_resource type="PackedScene" uid="uid://cjfrvly5e8o3k" path="res://prefabs/cat_02.tscn" id="9_sqofx"]
+[ext_resource type="PackedScene" uid="uid://b4njsdtjsj30t" path="res://prefabs/cat_03.tscn" id="10_8c2bu"]
+[ext_resource type="PackedScene" uid="uid://c5cf83eyi4j2u" path="res://prefabs/cat_04.tscn" id="11_udgwu"]
+[ext_resource type="PackedScene" uid="uid://df3ke6t2qnfho" path="res://prefabs/cat_05.tscn" id="13_8agov"]
+[ext_resource type="PackedScene" uid="uid://dve65k0nmnjh5" path="res://prefabs/cat_06.tscn" id="14_on5ld"]
+[ext_resource type="PackedScene" uid="uid://ch5of0oty6tw0" path="res://prefabs/cat_07.tscn" id="15_b5bw3"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_jbb1o"]
 normal = Vector2(1, 0)
@@ -29,360 +27,15 @@ friction = 0.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_hi70v"]
 radius = 52.0096
 
-[sub_resource type="Animation" id="Animation_u2wu4"]
-length = 1.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3, 2, 1]
-}
-
-[sub_resource type="Animation" id="Animation_awcf8"]
-resource_name = "idle"
-length = 0.7
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [0, 1, 2, 3]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_eeud4"]
-_data = {
-"RESET": SubResource("Animation_u2wu4"),
-"idle": SubResource("Animation_awcf8")
-}
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1xb"]
-size = Vector2(125.5, 222)
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qtjir"]
-radius = 136.0
-height = 568.0
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jm256"]
-radius = 201.0
-height = 1436.0
-
-[sub_resource type="Animation" id="Animation_rj0yq"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_gg64o"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_qoljg"]
-_data = {
-"RESET": SubResource("Animation_gg64o"),
-"idle": SubResource("Animation_rj0yq")
-}
-
-[sub_resource type="Animation" id="Animation_fbfpb"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_7ousb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_q6fph"]
-_data = {
-"RESET": SubResource("Animation_7ousb"),
-"idle": SubResource("Animation_fbfpb")
-}
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_r3bxd"]
-radius = 230.0
-height = 852.0
-
-[sub_resource type="Animation" id="Animation_gv83j"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_8id4g"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_41t2i"]
-_data = {
-"RESET": SubResource("Animation_8id4g"),
-"idle": SubResource("Animation_gv83j")
-}
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_em5hw"]
-radius = 266.0
-height = 944.0
-
-[sub_resource type="Animation" id="Animation_3bjbk"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_cbkyb"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_3lso2"]
-_data = {
-"RESET": SubResource("Animation_cbkyb"),
-"idle": SubResource("Animation_3bjbk")
-}
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m6u7r"]
-radius = 134.0
-height = 886.0
-
-[sub_resource type="Animation" id="Animation_xe6fi"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_ksv6k"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_s0euy"]
-_data = {
-"RESET": SubResource("Animation_ksv6k"),
-"idle": SubResource("Animation_xe6fi")
-}
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_tj3sa"]
-radius = 200.0
-height = 976.0
-
-[sub_resource type="Animation" id="Animation_pmsds"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_f2lbp"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_0tvrt"]
-_data = {
-"RESET": SubResource("Animation_f2lbp"),
-"idle": SubResource("Animation_pmsds")
-}
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lidoh"]
-radius = 119.0
-height = 846.0
-
-[sub_resource type="Animation" id="Animation_rap13"]
-resource_name = "idle"
-length = 0.2
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [0, 1]
-}
-
-[sub_resource type="Animation" id="Animation_5e7oa"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_ecnol"]
-_data = {
-"RESET": SubResource("Animation_5e7oa"),
-"idle": SubResource("Animation_rap13")
-}
-
 [node name="Node2D" type="Node2D"]
 
-[node name="Background" type="Node2D" parent="."]
+[node name="Game-bg03a" type="Sprite2D" parent="."]
+position = Vector2(0, -7160)
+texture = ExtResource("2_qcry6")
 
-[node name="Background Image" type="Sprite2D" parent="Background"]
-position = Vector2(0, -14416)
-texture = ExtResource("1_tvq7u")
-
-[node name="Bubble-placeholder2" type="Sprite2D" parent="Background"]
-visible = false
-position = Vector2(946, 252)
-scale = Vector2(0.690975, 0.652297)
-texture = ExtResource("3_eg1u6")
-
-[node name="Bubble-placeholder1" type="Sprite2D" parent="Background"]
-visible = false
-position = Vector2(-1019, 165)
-texture = ExtResource("3_eg1u6")
+[node name="Game-bg03b" type="Sprite2D" parent="."]
+position = Vector2(0, -22160)
+texture = ExtResource("3_yjr52")
 
 [node name="Limits" type="Node2D" parent="."]
 
@@ -444,7 +97,6 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="BubbleSpawner" type="Node2D" parent="Player"]
-visible = false
 position = Vector2(0, 1000)
 script = ExtResource("6_nqjj2")
 
@@ -452,193 +104,53 @@ script = ExtResource("6_nqjj2")
 wait_time = 3.0
 autostart = true
 
-[node name="Ghost" type="Area2D" parent="."]
-script = ExtResource("6_v08to")
+[node name="Cat 08" parent="." instance=ExtResource("8_jq25l")]
+position = Vector2(-151, -25251)
 
-[node name="Oneshot" type="AudioStreamPlayer2D" parent="Ghost"]
-position = Vector2(0, 200)
-stream = ExtResource("5_paspp")
+[node name="Cat 09" parent="." instance=ExtResource("9_sqofx")]
+position = Vector2(473, -22053)
 
-[node name="Sprite2D" type="Sprite2D" parent="Ghost"]
-texture_filter = 1
-scale = Vector2(0.2, 0.2)
-texture = ExtResource("7_wxb1k")
-hframes = 3
-vframes = 2
+[node name="Cat 10" parent="." instance=ExtResource("10_8c2bu")]
+position = Vector2(-402, -20072)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Ghost"]
-libraries = {
-"": SubResource("AnimationLibrary_eeud4")
-}
-autoplay = "idle"
+[node name="Cat 11" parent="." instance=ExtResource("11_udgwu")]
+position = Vector2(451, -18172)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Ghost"]
-position = Vector2(0.5, 1)
-shape = SubResource("RectangleShape2D_ob1xb")
+[node name="Cat 12" parent="." instance=ExtResource("13_8agov")]
+position = Vector2(-273, -16113)
 
-[node name="Cat Sleeping" type="StaticBody2D" parent="."]
-position = Vector2(-500, -200)
+[node name="Cat 13" parent="." instance=ExtResource("14_on5ld")]
+position = Vector2(448, -14379)
 
-[node name="Oneshot" type="AudioStreamPlayer2D" parent="Cat Sleeping"]
-position = Vector2(0, 200)
-stream = ExtResource("5_paspp")
+[node name="Cat 14" parent="." instance=ExtResource("15_b5bw3")]
+position = Vector2(-476, -12709)
 
-[node name="Sprite2D" type="Sprite2D" parent="Cat Sleeping"]
-texture_filter = 1
-scale = Vector2(2.25862, 2.25862)
-texture = ExtResource("9_hsf22")
-hframes = 2
-vframes = 2
+[node name="Cat Sleeping2" parent="." instance=ExtResource("7_rw57t")]
+position = Vector2(134, -29067)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat Sleeping"]
-libraries = {
-"": SubResource("AnimationLibrary_eeud4")
-}
-autoplay = "RESET"
+[node name="Ghost2" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(252, -1655)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat Sleeping"]
-position = Vector2(-18, -156)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_qtjir")
+[node name="Ghost3" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(-291, -2953)
 
-[node name="Cat 01" type="StaticBody2D" parent="."]
-position = Vector2(-200, -900)
+[node name="Ghost4" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(524, -4584)
 
-[node name="Oneshot" type="AudioStreamPlayer2D" parent="Cat 01"]
-position = Vector2(0, 200)
-stream = ExtResource("5_paspp")
+[node name="Ghost5" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(-654, -5536)
 
-[node name="Sprite2D" type="Sprite2D" parent="Cat 01"]
-texture_filter = 1
-scale = Vector2(0.803125, 0.803125)
-texture = ExtResource("10_ghxy1")
-vframes = 2
+[node name="Ghost6" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(464, -6608)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 01"]
-position = Vector2(0, 69)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_jm256")
+[node name="Ghost7" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(-760, -7544)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 01"]
-libraries = {
-"": SubResource("AnimationLibrary_qoljg")
-}
-autoplay = "idle"
+[node name="Ghost8" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(554, -8315)
 
-[node name="Cat 02" type="StaticBody2D" parent="."]
-position = Vector2(500, -1600)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat 02"]
-scale = Vector2(0.921534, 0.921533)
-texture = ExtResource("10_4afht")
-vframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 02"]
-libraries = {
-"": SubResource("AnimationLibrary_q6fph")
-}
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 02"]
-position = Vector2(7, 32)
-rotation = -1.5708
-shape = SubResource("CapsuleShape2D_r3bxd")
-
-[node name="Cat 03" type="StaticBody2D" parent="."]
-position = Vector2(-400, -1600)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat 03"]
-texture = ExtResource("11_fs14u")
-vframes = 2
-frame = 1
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 03"]
-libraries = {
-"": SubResource("AnimationLibrary_41t2i")
-}
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 03"]
-position = Vector2(-60, 61)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_em5hw")
-
-[node name="Cat 04" type="StaticBody2D" parent="."]
-position = Vector2(300, -450)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat 04"]
-texture = ExtResource("14_7anny")
-vframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 04"]
-libraries = {
-"": SubResource("AnimationLibrary_3lso2")
-}
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 04"]
-position = Vector2(0, 22)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_m6u7r")
-
-[node name="NPCBubble" parent="." instance=ExtResource("9_n0vg2")]
-position = Vector2(283, 29)
-
-[node name="Cat 05" type="StaticBody2D" parent="."]
-position = Vector2(300, -2200)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat 05"]
-texture = ExtResource("15_nq8p5")
-vframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 05"]
-libraries = {
-"": SubResource("AnimationLibrary_s0euy")
-}
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 05"]
-position = Vector2(4, 22)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_tj3sa")
-
-[node name="Cat 06" type="StaticBody2D" parent="."]
-position = Vector2(-300, -2600)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat 06"]
-texture = ExtResource("16_uyvx6")
-vframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 06"]
-libraries = {
-"": SubResource("AnimationLibrary_0tvrt")
-}
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 06"]
-position = Vector2(-47, 44)
-rotation = 1.5708
-shape = SubResource("CapsuleShape2D_lidoh")
-
-[node name="Cat 07" type="StaticBody2D" parent="."]
-position = Vector2(300, -3000)
-
-[node name="Sprite2D" type="Sprite2D" parent="Cat 07"]
-texture = ExtResource("17_2sobp")
-vframes = 2
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cat 07"]
-libraries = {
-"": SubResource("AnimationLibrary_ecnol")
-}
-autoplay = "idle"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Cat 07"]
+[node name="Ghost9" parent="." instance=ExtResource("3_roed1")]
+position = Vector2(-578, -8979)
 
 [connection signal="body_entered" from="Player" to="Player" method="_on_body_entered"]
-[connection signal="player_entered_ghost" from="Player" to="Ghost" method="_on_player_player_entered_ghost"]
 [connection signal="timeout" from="Player/BubbleSpawner/Timer" to="Player/BubbleSpawner" method="_on_timer_timeout"]
-[connection signal="body_entered" from="Ghost" to="Player" method="_on_ghost_body_entered"]
-[connection signal="finished" from="Ghost/Oneshot" to="Player" method="_on_oneshot_finished"]
-[connection signal="finished" from="Cat Sleeping/Oneshot" to="Player" method="_on_oneshot_finished"]
-[connection signal="finished" from="Cat 01/Oneshot" to="Player" method="_on_oneshot_finished"]

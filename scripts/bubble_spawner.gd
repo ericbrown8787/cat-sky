@@ -1,5 +1,5 @@
 extends Node2D
-var bubble = preload("res://npc_bubble.tscn")
+var bubble = preload("res://prefabs/npc_bubble.tscn")
 
 
 func _on_timer_timeout() -> void:

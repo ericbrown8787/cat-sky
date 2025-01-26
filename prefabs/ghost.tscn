@@ -1,0 +1,71 @@
+[gd_scene load_steps=8 format=3 uid="uid://kxmxh4b6vdg0"]
+
+[ext_resource type="Script" path="res://scripts/ghost.gd" id="1_sbmf6"]
+[ext_resource type="AudioStream" uid="uid://b5gaqogx8m2fh" path="res://audio/Collision Bell.wav" id="2_s801t"]
+[ext_resource type="Texture2D" uid="uid://d4i2g24c4835o" path="res://animated_sprites/ghost 01.png" id="3_3oysm"]
+
+[sub_resource type="Animation" id="Animation_u2wu4"]
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6, 0.8, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_awcf8"]
+resource_name = "idle"
+length = 0.7
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_eeud4"]
+_data = {
+"RESET": SubResource("Animation_u2wu4"),
+"idle": SubResource("Animation_awcf8")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ob1xb"]
+size = Vector2(125.5, 222)
+
+[node name="Ghost" type="Area2D"]
+script = ExtResource("1_sbmf6")
+
+[node name="Oneshot" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, 200)
+stream = ExtResource("2_s801t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("3_3oysm")
+hframes = 3
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_eeud4")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, 1)
+shape = SubResource("RectangleShape2D_ob1xb")

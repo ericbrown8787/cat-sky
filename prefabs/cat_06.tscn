@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://dve65k0nmnjh5"]
+
+[ext_resource type="Texture2D" uid="uid://lbn50lleg2un" path="res://animated_sprites/cat-sprite_06.png" id="1_aa613"]
+
+[sub_resource type="Animation" id="Animation_f2lbp"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_pmsds"]
+resource_name = "idle"
+length = 0.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [0, 1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0tvrt"]
+_data = {
+"RESET": SubResource("Animation_f2lbp"),
+"idle": SubResource("Animation_pmsds")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_lidoh"]
+radius = 119.0
+height = 846.0
+
+[node name="Cat 06" type="StaticBody2D"]
+position = Vector2(-300, -2600)
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_aa613")
+vframes = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_0tvrt")
+}
+autoplay = "idle"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-47, 44)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_lidoh")

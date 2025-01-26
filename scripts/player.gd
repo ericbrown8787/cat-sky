@@ -16,12 +16,13 @@ func handle_input():
 		self.apply_impulse(horizontal_accel)		
 
 func handle_collision(body: Node):
-	var oneshot = body.get_node("Oneshot")
+	print("Collided")
+	#var oneshot = body.get_node("Oneshot")
 	
-	if oneshot: 
-		oneshot.play()
+	#if oneshot: 
+	#	oneshot.play()
 		
-	print("Collided")	
+	#print("Collided")	
 	
 func _physics_process(delta):
 	handle_input()
